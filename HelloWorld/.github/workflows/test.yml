@@ -1,0 +1,36 @@
+name: Build and Deploy Spring Boot App
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 25
+      uses: actions/setup-java@v4
+      with:
+        java-version: '25'
+        distribution: 'temurin'
+        cache: 'maven'
+
+    - name: Grant execute permission for Maven wrapper
+      run: chmod +x mvnw
+      
+
+    - name: Build with Maven
+      run: ./mvnw clean package
+      
+
+    - name: Upload Application JAR Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-jar
+        path: lec31-BootStrapping/target/*.jar
