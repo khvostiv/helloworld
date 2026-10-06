@@ -23,14 +23,12 @@ jobs:
 
     - name: Grant execute permission for Maven wrapper
       run: chmod +x mvnw
-      
 
     - name: Build with Maven
       run: ./mvnw clean package
-      
 
     - name: Upload Application JAR Artifact
       uses: actions/upload-artifact@v4
       with:
         name: app-jar
-        path: lec31-BootStrapping/target/*.jar
+        path: target/*.jar
