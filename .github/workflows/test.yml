@@ -20,15 +20,18 @@ jobs:
         java-version: '25'
         distribution: 'temurin'
         cache: 'maven'
+        cache-dependency-path: HelloWorld/pom.xml
 
     - name: Grant execute permission for Maven wrapper
+      working-directory: HelloWorld
       run: chmod +x mvnw
 
     - name: Build with Maven
+      working-directory: HelloWorld
       run: ./mvnw clean package
 
     - name: Upload Application JAR Artifact
       uses: actions/upload-artifact@v4
       with:
         name: app-jar
-        path: target/*.jar
+        path: HelloWorld/target/*.jar
